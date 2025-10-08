@@ -1,20 +1,40 @@
-class Contador:
-    """
-    Iterador simples que conta de 1 até n.
-    """
+from abc import ABC, abstractmethod
 
-    def __init__(self, n):
-        self.n = n      
-        self.atual = 0    
+class Pagamento(ABC):
+    @abstractmethod
+    def pagamento(self):
+        """Processa um pagamento em reais (BRL)."""
 
-    def __iter__(self):
-        print("Chamando __iter__()")
-        return self
+class EUR_BRL(Pagamento):
+    def __init__(self, euro):
+        self._euro = euro
+        self.real = None
+        self.conversao = 7
+        
+    def _setter_real(self):
+        self.real = (self.conversao) * (self._euro)
+    
+    def pagamento(self):
+        self._setter_real()    
+        return self.real
 
-    def __next__(self):
-        print("Chamando __next__()")
-        if self.atual < self.n:
-            self.atual += 1
-            return self.atual
-        else:
-            raise StopIteration
+class BTC_BRL(Pagamento):
+    def __init__(self, btc):
+        self._btc = btc
+        self.real = None
+        self.conversao = 10000
+        
+    def _setter_real(self):
+        self.real = (self.conversao) * (self._btc)
+    
+    def pagamento(self):
+        self._setter_real()
+        return self.real
+
+euro = EUR_BRL(25)
+btc = BTC_BRL(0.02)
+pagamentos = [euro, btc]
+
+for pag in pagamentos:
+    pagg = pag.pagamento()
+    print(pagg)
