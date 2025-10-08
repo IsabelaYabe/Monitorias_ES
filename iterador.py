@@ -2,8 +2,9 @@ from abc import ABC, abstractmethod
 
 class Pagamento(ABC):
     @abstractmethod
-    def pay(self, value: float):
+    def pagamento(self, value: float):
         """Processa um pagamento em reais (BRL)."""
-        pass
+        print("Pagamento efetuado")
 
+class EUR_BRL(Pagamento)
 
