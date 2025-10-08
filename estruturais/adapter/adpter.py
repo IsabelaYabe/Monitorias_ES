@@ -1,12 +1,15 @@
 from abc import ABC, abstractmethod
 
+class ConversorMoeda:
+    """Classe para pegar valor do euro e do bitcoin e converter para real."""
+
 class Pagamento(ABC):
     @abstractmethod
     def pagamento(self):
         """Processa um pagamento em reais (BRL)."""
 
 class EUR_BRL(Pagamento):
-    def __init__(self, euro):
+    def __init__(self, euro: float):
         self._euro = euro
         self.real = None
         self.conversao = 7

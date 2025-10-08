@@ -1,1 +1,2 @@
-# ex_decoradores_clousure
+Repositório dedicado às **monitorias da disciplina de Engenharia de Software**, ministrada por **Prof. Rafael Pinho** na **FGV EMAp**.  
+Aqui estudamos, implementamos e discutimos **padrões de projeto (Design Patterns)** e conceitos fundamentais de programação orientada a objetos em **Python**.
