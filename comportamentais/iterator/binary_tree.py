@@ -21,7 +21,7 @@ class BinaryTree:
         """Returns an iterator for the tree."""
         return BinaryTreeIterator(self)
 
-
+    
 def main():
     """Demonstration of BinaryTree and its iterator."""
     tree_left = BinaryTree(5, left=BinaryTree(2), right=BinaryTree(8))

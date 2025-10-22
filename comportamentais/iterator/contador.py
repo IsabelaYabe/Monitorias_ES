@@ -17,7 +17,7 @@ class Contador:
             self.atual += 1
             return self.atual
         else:
-            # self.atual = 0  
+            self.atual = 0  
             raise StopIteration
 
 def main():
