@@ -36,7 +36,7 @@ class TextDocument(Document):
         self.is_open = False
         print(f"Fechando '{self.name}'.")
     
-    def _status(self) -> Dict[str, Any]:
+    def _state(self) -> Dict[str, Any]:
         content = copy.deepcopy(self._content)
         font = copy.deepcopy(self._font)
         font_size = copy.deepcopy(self._font_size)

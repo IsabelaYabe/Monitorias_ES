@@ -1,4 +1,5 @@
-from framework.documents import Document
+from ..documents import Document
+from ..interface import InterfaceFactory
 
 from abc import ABC, abstractmethod
 from functools import wraps
@@ -21,7 +22,7 @@ def multiton(id: Any, attr_name: str):
 
             if key not in instances:
                 print(f"Criando nova instância para '{key}'.")
-                instances[key] = func(*args, **kwargs)
+                instances[key] = func(self, *args, **kwargs)
             else:
                 print(f"Reutilizando instância existente para '{key}'")
             return instances[key]
@@ -31,7 +32,8 @@ def multiton(id: Any, attr_name: str):
 class Application(ABC):
     """Define o criador de documentos e controla instâncias (Multiton)."""
     
-    def __init__(self):
+    def __init__(self, ui: InterfaceFactory):
+        self.ui: InterfaceFactory = ui
         self._documents: Dict[str, Document] = {}
     
     @multiton("name", "_documents")
@@ -39,20 +41,25 @@ class Application(ABC):
         """Factory Method + Multiton"""
         doc = self.create_document(name)
         self._documents[name] = doc
-        doc.open_document()
+        self.open_document(name)
         return doc
 
+    def show_ui(self) -> None:
+        window = self.ui.create_window()
+        cursor = self.ui.create_cursor()
+
     def open_document(self, name) -> Document:
-        if self._docs[name] is None:
+        if self._documents[name] is None:
             raise ValueError(f"Document '{name}' not found")
         
+        self.show_ui()
         doc = self._documents[name]
         if doc._is_open == True:
             print(f"'{name} is alredy open")
             return doc
         return doc._open()
     
-    def open_document(self, name) -> None:
+    def close_document(self, name) -> None:
         if self._documents[name] is None:
             raise ValueError(f"Document '{name}' not found")
         
@@ -61,7 +68,7 @@ class Application(ABC):
             print(f"'{name} is alredy closed")
         else:
             doc._close()
-    
+
     @abstractmethod
     def create_document(self, name: str):
         """Factory Method"""

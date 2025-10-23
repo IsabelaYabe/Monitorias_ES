@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class InterfaceFactory(ABC):
-    """Abstract Factory — cria famílias de objetos relacionados."""
+    """Abstract Factory creates families of related objects."""
     
     @abstractmethod
     def create_window(self): ...
