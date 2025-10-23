@@ -34,7 +34,7 @@ class Drawing(Document):
     def _state(self) -> Dict[str, Any]:
         content = copy.deepcopy(self._content)
         colors = copy.deepcopy(self._colors)
-        state = {}
+        state: Dict[str, Any] = {}
         state["content"] = content
         state["colors"] = colors
         print(f"Capturing state for drawing '{self._name}'")
@@ -45,14 +45,14 @@ class Drawing(Document):
         print(f"Saved drawing '{self._name}'")
 
     def revert(self) -> None:
-        if self._snapshot is not None:
-            self._content = self._snapshot["content"]
-            self._colors = self._snapshot["colors"]
-            print(f"Reverted drawing '{self._name}' to last saved state")
-        else:
+        if self._snapshot is None:
             print(f"No saved state to revert to for drawing '{self._name}'")
+        
+        self._content = self._snapshot["content"]
+        self._colors = self._snapshot["colors"]
+        print(f"Reverted drawing '{self._name}' to last saved state")
 
 class Paint(Application):
-    def _create_document(self, name: str): 
+    def _create_document(self, name: str) -> Drawing: 
         doc = Drawing(name)
         return doc

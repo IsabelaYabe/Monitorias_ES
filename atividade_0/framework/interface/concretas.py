@@ -1,6 +1,5 @@
 from interface_factory import InterfaceFactory
-from window import Window
-from cursor import Cursor
+from window_cursor import Window, Cursor
 
 class WindowsWindow(Window):
     def draw(self):

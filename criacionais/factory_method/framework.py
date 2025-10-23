@@ -39,21 +39,23 @@ class Application(ABC):
     
     def open_document(self, name) -> Document:
         if self._docs[name] is None:
-            raise ValueError(f"Document '{name}' not found.")
-        if self._docs[name]._is_open == True:
-            print(f"'{name}' is already open")
+            raise ValueError(f"Document '{name}' not found")
         
         doc = self._docs[name]
+        if doc._is_open == True:
+            print(f"'{name}' is already open")
+            return doc    
         return doc._open()
 
     def close_document(self, name) -> None:
         if self._docs[name] is None:
-            raise ValueError(f"Document '{name}' not found.")
+            raise ValueError(f"Document '{name}' not found")
+        
+        doc = self._docs[name]
         if self._docs[name]._is_open == False:
             print(f"'{name}' is already closed")
-
-        doc = self._docs[name]
-        return doc._close() 
+        else:
+            doc._close() 
 
     @abstractmethod
     def _create_document(self, *args, **kwargs) -> Document: ... # Factory method
