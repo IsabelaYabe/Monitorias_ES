@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 def multiton(id: Any, attr_name: str):
     def decorador(func):
-        """ Decorator para implementar o padrão Multiton. """
+        """Decorator to implement the Multiton pattern"""
         @wraps(func)
         def get_instance(self, *args, **kwargs):
             if id in kwargs:
@@ -16,22 +16,20 @@ def multiton(id: Any, attr_name: str):
             elif len(args) > 1:
                 key = args[1]
             else:
-                raise ValueError(f"Não foi possível encontrar o argumento '{id}'.")
+                raise ValueError(f"Could not find argument '{id}'")
 
             instances = getattr(self, attr_name)
 
             if key not in instances:
-                print(f"Criando nova instância para '{key}'.")
+                print(f"Creating new instance for '{key}'")
                 instances[key] = func(self, *args, **kwargs)
             else:
-                print(f"Reutilizando instância existente para '{key}'")
+                print(f"Reusing existing instance for '{key}'")
             return instances[key]
         return get_instance
     return decorador
 
 class Application(ABC):
-    """Define o criador de documentos e controla instâncias (Multiton)."""
-    
     def __init__(self, ui: InterfaceFactory):
         self.ui: InterfaceFactory = ui
         self._documents: Dict[str, Document] = {}
