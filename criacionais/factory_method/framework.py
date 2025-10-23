@@ -1,12 +1,24 @@
 from abc  import ABC, abstractmethod
-from typing import Dict
+from typing import Dict, Any, Optional
 
 class Document(ABC):
+    def __init__(self, name: str):
+        self._name: str = name
+        self._is_open: bool = False
+        self._snapshot: Optional[Dict[str, Any]] = None
+
+    @property
+    def name(self) -> str:
+        return self._name
+    @name.setter
+    def name(self, new_name: str) -> None:
+        self._name = new_name
+    
     @abstractmethod
-    def open(self) -> None: ...
+    def _open(self) -> None: ...
 
     @abstractmethod
-    def close(self) -> None: ...
+    def _close(self) -> None: ...
 
     @abstractmethod
     def save(self) -> None: ...
@@ -17,21 +29,31 @@ class Document(ABC):
 class Application(ABC):
     def __init__(self) -> None: 
         self._docs: Dict[str, Document] = {}
-    
-    @abstractmethod
+        
     def new_document(self, *args, **kwargs) -> Document: 
-        """Factory Method Usage: create + register + open."""
-        doc = self.create_document(*args, **kwargs)
-        self._docs.append(doc)
-        doc.open()
+        """Factory Method Usage: create + register + open"""
+        doc = self._create_document(*args, **kwargs) 
+        self._docs[doc.name] = doc  
+        self.open_document(doc.name)
         return doc
     
-    @abstractmethod
-    def open_document(self, *args, **kwargs) -> Document: 
-        doc = self.create_document(*args, **kwargs)
-        self._docs.append(doc)    
-        doc.open()
-        return doc
+    def open_document(self, name) -> Document:
+        if self._docs[name] is None:
+            raise ValueError(f"Document '{name}' not found.")
+        if self._docs[name]._is_open == True:
+            print(f"'{name}' is already open")
+        
+        doc = self._docs[name]
+        return doc._open()
+
+    def close_document(self, name) -> None:
+        if self._docs[name] is None:
+            raise ValueError(f"Document '{name}' not found.")
+        if self._docs[name]._is_open == False:
+            print(f"'{name}' is already closed")
+
+        doc = self._docs[name]
+        return doc._close() 
 
     @abstractmethod
-    def create_document(self, *args, **kwargs) -> Document: ... # Factory method
+    def _create_document(self, *args, **kwargs) -> Document: ... # Factory method

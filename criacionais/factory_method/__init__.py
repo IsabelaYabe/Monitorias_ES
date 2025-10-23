@@ -1,3 +1,4 @@
-from . import Document, Application
+from .framework import Document, Application
+from .paint import Paint, Drawing
 
-__all__ = ["Document", "Application"]
+__all__ = ["Document", "Application", "Paint", "Drawing"]
