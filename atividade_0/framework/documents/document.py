@@ -4,7 +4,7 @@ from typing import Optional, Dict, Any
 class Document(ABC):
     def __init__(self, name: str):
         self._name: str = name
-        self._is_open: bool = name
+        self._is_open: bool = False
         self._snapshot: Optional[Dict[str, Any]] = None
 
     @property
