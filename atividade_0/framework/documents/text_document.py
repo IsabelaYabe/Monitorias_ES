@@ -29,11 +29,11 @@ class TextDocument(Document):
         self._font_size = new_font_size    
     
     def _open(self):
-        self.is_open = True
+        self._is_open = True
         print(f"Abrindo o documento de texto '{self.name}'.")
 
     def _close(self):
-        self.is_open = False
+        self._is_open = False
         print(f"Fechando '{self.name}'.")
     
     def _state(self) -> Dict[str, Any]:
