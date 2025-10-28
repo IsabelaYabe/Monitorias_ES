@@ -7,13 +7,11 @@ class WindowsWindow(Window):
 class WindowsCursor(Cursor):
     def create_cursor(self):
         print("Windows cursor created")
-
 class WindowsInterface(InterfaceFactory):
     def create_window(self):
         return WindowsWindow()
     def create_cursor(self):
         return WindowsCursor()
-
 
 class MacWindow(Window):
     def create_window(self):
@@ -21,7 +19,6 @@ class MacWindow(Window):
 class MacCursor(Cursor):
     def create_cursor(self):
         print("Mac cursor created")
-
 class MacInterface(InterfaceFactory):
     def create_window(self):
         return MacWindow()

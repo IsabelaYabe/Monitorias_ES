@@ -1,8 +1,8 @@
 from functools import wraps
-
+from typing import Dict
 def singleton(cls):
     """Singleton decorator"""
-    instances = {} 
+    instances: Dict = {} 
 
     @wraps(cls)
     def wrapper(*args, **kwargs):

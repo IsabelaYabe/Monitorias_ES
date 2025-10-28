@@ -68,5 +68,5 @@ class Application(ABC):
             doc._close()
 
     @abstractmethod
-    def create_document(self, name: str):
+    def _create_document(self, name: str):
         """Factory Method"""
