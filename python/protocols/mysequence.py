@@ -1,7 +1,7 @@
 from typing import Protocol, runtime_checkable
 
 @runtime_checkable
-class MySequence[T](Protocol): # qualquer coisa que tenha __getitem__ e __len__ e devolva itens do tipo T
+class MySequence[T](Protocol):
     def __getitem__(self, index: int) -> T:
         ...
 
