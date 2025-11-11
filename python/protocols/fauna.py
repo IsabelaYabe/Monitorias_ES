@@ -18,7 +18,10 @@ def underwater_exploration(entity: Swimmer) -> None:
     entity.dive(50)
     entity.swim("shipwreck")
 
-class Whale:
+class Whale: 
+    """
+    It's a Swimmer?
+    """
     def dive(self, depth: float) -> None:
         print(f"Whale is diving to {depth = }.")
 
@@ -26,4 +29,4 @@ class Whale:
         print(f"Whale is swimming to {destination = }.")
 
 mobby_dick = Whale()
-underwater_exploration(mobby_dick)
+underwater_exploration(mobby_dick) 
