@@ -1,0 +1,8 @@
+@startuml
+object "app:TextEditor" as app
+object "docA:TextDocument" as docA
+object "docB:TextDocument" as docB
+
+app --> docA : _document_folder["atividade"]
+app --> docB : _document_folder["relatorio"]
+@enduml

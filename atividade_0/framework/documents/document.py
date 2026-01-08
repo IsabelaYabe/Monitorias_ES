@@ -1,27 +1,20 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from typing import Optional, Dict, Any
 
 class Document(ABC):
     def __init__(self, name: str):
-        self._name: str = name
-        self._is_open: bool = False
-        self._snapshot: Optional[Dict[str, Any]] = None
+        self.name = name
 
     @property
-    def name (self) -> str:
-        return self._name
-    @name.setter
-    def name(self, new_name) -> None:
-        self._name = new_name
+    @abstractmethod
+    def is_open(self) -> bool:
+        ...
 
     @abstractmethod
-    def _open(self): ...
-    
+    def open(self) -> "Document":
+        ...
+
     @abstractmethod
-    def _close(self): ...
-    
-    @abstractmethod
-    def save(self): ...
-    
-    @abstractmethod
-    def revert(self): ...
+    def close(self) -> None:
+        ...

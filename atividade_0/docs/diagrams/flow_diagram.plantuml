@@ -1,0 +1,31 @@
+@startuml
+actor Caller
+participant "Application" as App
+participant "multiton wrapper" as M
+participant "create_document (Factory Method)" as FM
+participant "open_document" as OD
+
+Caller -> App : new_document(name="atividade")
+activate App
+App -> M : get_instance(self, name="atividade")
+activate M
+
+M -> App : instances = self._documents
+M -> M : if "atividade" in instances?
+
+alt NÃO existe
+  M -> App : func(...)  (chama new_document real)
+  App -> FM : create_document("atividade")
+  FM --> App : doc
+  App -> App : self._documents["atividade"] = doc
+  App -> OD : open_document("atividade")
+  OD --> App : doc aberto
+  App --> M : doc
+else JÁ existe
+  M -> App : return self._documents["atividade"]
+end
+
+M --> Caller : doc
+deactivate M
+deactivate App
+@enduml
