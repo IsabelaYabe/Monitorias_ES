@@ -1,0 +1,75 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ===== Abstract Factory =====
+interface InterfaceFactory {
+  +create_window() : Window
+  +create_cursor() : Cursor
+}
+
+abstract class Window {
+  +void render()
+}
+abstract class Cursor {
+  +void draw()
+}
+
+class WindowsInterfaceFactory
+class MacInterfaceFactory
+class WindowsWindow
+class MacWindow
+class WindowsCursor
+class MacCursor
+
+InterfaceFactory <|.. WindowsInterfaceFactory
+InterfaceFactory <|.. MacInterfaceFactory
+
+Window <|-- WindowsWindow
+Window <|-- MacWindow
+Cursor <|-- WindowsCursor
+Cursor <|-- MacCursor
+
+WindowsInterfaceFactory --> WindowsWindow : creates
+WindowsInterfaceFactory --> WindowsCursor : creates
+MacInterfaceFactory --> MacWindow : creates
+MacInterfaceFactory --> MacCursor : creates
+
+' ===== Factory Method + Multiton =====
+abstract class Application {
+  -_documents : dict
+  -_ui : InterfaceFactory
+  +new_document(name: str) : Document
+  #_create_document(name: str) : Document
+  +void show_ui()
+}
+
+class TextEditor {
+  #_create_document(name: str) : Document
+}
+
+Application <|-- TextEditor
+Application --> InterfaceFactory
+
+' ===== Document + Memento =====
+abstract class Document {
+  +name : str
+  +void save()
+  +void revert()
+}
+
+class TextDocument {
+  -content : str
+  -_history : list
+  +void write(text: str)
+  +read() : str
+}
+
+class Memento {
+  +content : str
+}
+
+Document <|-- TextDocument
+TextDocument o-- "many" Memento : history
+
+Application --> Document : manages (multiton by name)
+@enduml

@@ -1,33 +1,35 @@
-from .framework import TextEditor, WindowsInterface, MacInterface
+from app.text_editor import TextEditor
+from app.interface.concretas import WindowsInterfaceFactory, MacInterfaceFactory
 
 def main():
-    windows_interface = WindowsInterface()
-    app = TextEditor(windows_interface)
+    win = WindowsInterfaceFactory()
+    mac = MacInterfaceFactory()
 
-    print("--- Creating a document ---")
-    doc = app.new_document(name="atividade")
-    doc.content = "Conteúdo da atividade"
-    doc.font = "Arial"
-    doc.font_size = 14
+    # Singleton
+    app1 = TextEditor(win)
+    app2 = TextEditor(win)
+    print("Singleton:", app1 is app2)  # True
 
-    print("--- Saving the document ---")
-    doc.save()    
+    # Se tentar trocar UI depois: deve falhar (aceite do RF-05)
+    try:
+        TextEditor(mac)
+    except ValueError as e:
+        print("Troca de UI bloqueada:", e)
 
-    print("--- Modifying the document ---")
-    doc.content = "Conteúdo modificado da atividade"
-    doc.font_size = 16
-    print(f"Modified content: {doc.content}")
-    print(f"Font: {doc.font}")
-    print(f"Font size: {doc.font_size}")
+    # Abstract Factory (na prática, a UI é definida na primeira criação)
+    app1.show_ui()
 
-    print("--- Reverting the document ---")
-    doc.revert()
-    print(f"Reverted content: {doc.content}")
-    print(f"Font: {doc.font}")
-    print(f"Font size: {doc.font_size}")
+    # Multiton (Document)
+    d1 = app1.new_document("notes")
+    d2 = app1.new_document("notes")
+    print("Multiton doc:", d1 is d2)  # True
 
-    print("--- Closing the document ---")
-    app.close_document("atividade")
+    # Save/Revert (Memento)
+    d1.write("A")
+    d1.save()
+    d1.write("B")
+    d1.revert()
+    print("Depois do revert:", d1.read())  # A
 
 if __name__ == "__main__":
     main()
