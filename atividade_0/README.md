@@ -146,7 +146,6 @@ atividade0/
 * Pode ser:
 
   * decorator `@multiton(key_arg="name", attr_name="_documents")`
-  * ou lógica dentro de `new_document` (mais fácil de entender em aula)
 
 ### 4) Memento (Save/Revert)
 

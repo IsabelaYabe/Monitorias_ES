@@ -1,4 +1,4 @@
-from .applications import TextEditor
+from .app import TextEditor
 from .documents import TextDocument
 from .interface import WindowsInterface, MacInterface
 

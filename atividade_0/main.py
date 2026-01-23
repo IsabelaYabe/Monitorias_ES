@@ -1,5 +1,5 @@
-from app.text_editor import TextEditor
-from app.interface.concretas import WindowsInterfaceFactory, MacInterfaceFactory
+from framework.text_editor import TextEditor
+from framework.interface.concretas import WindowsInterfaceFactory, MacInterfaceFactory
 
 def main():
     win = WindowsInterfaceFactory()

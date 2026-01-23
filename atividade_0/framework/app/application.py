@@ -6,6 +6,7 @@ from typing import Any, Dict
 
 from ..documents import Document
 from ..interface import InterfaceFactory
+from ..singleton import SingletonABCMeta
 
 DocumentFolder = Dict[str, Document]
 
@@ -38,7 +39,7 @@ def multiton(key_arg: str, attr_name: str):
     return decorador
 
 
-class Application(ABC):
+class Application(ABC, metaclass=SingletonABCMeta):
     def __init__(self, ui: InterfaceFactory):
         self.ui: InterfaceFactory = ui
         self._document_folder: DocumentFolder = {}

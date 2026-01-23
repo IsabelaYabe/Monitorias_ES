@@ -22,8 +22,8 @@ class SingletonABCMeta(ABCMeta):
             if new_ui is not None and hasattr(inst, "ui"):
                 if inst.ui.__class__ is not new_ui.__class__:
                     raise ValueError(
-                        f"{cls.__name__} já foi criado com {inst.ui.__class__.__name__}. "
-                        f"Não pode recriar com {new_ui.__class__.__name__}."
+                        f"{cls.__name__} has already been created with {inst.ui.__class__.__name__}. "
+                        f"Cannot recreate with {new_ui.__class__.__name__}."
                     )
 
             return inst

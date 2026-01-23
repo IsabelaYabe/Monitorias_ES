@@ -10,7 +10,6 @@ class TextDocument(Document):
         super().__init__(name)
         self._is_open: bool = False
 
-        # Conteúdo/estilo
         self.content: str = ""
         self.font: str = "Arial"
         self.font_size: int = 12
@@ -55,3 +54,16 @@ class TextDocument(Document):
         self.font = self._snapshot["font"]
         self.font_size = self._snapshot["font_size"]
         print(f"Reverting document '{self.name}'")
+
+    def read(self) -> None:
+        if not self._is_open:
+            raise ValueError(f"Document '{self.name}' is not open")
+    
+        return self.content
+
+    def write(self, text: str) -> None:
+        if not self._is_open:
+            raise ValueError(f"Document '{self.name}' is not open")
+        
+        self.content += text
+        print(f"Updating document '{self.name}'\nContent: {self.content}")
