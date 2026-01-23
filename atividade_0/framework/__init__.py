@@ -1,5 +1,5 @@
 from .app import TextEditor
 from .documents import TextDocument
-from .interface import WindowsInterface, MacInterface
+from .interface import WindowsInterfaceFactory, MacInterfaceFactory
 
-__all__ = ["TextEditor", "TextDocument", "WindowsInterface", "MacInterface"]
+__all__ = ["TextEditor", "TextDocument", "WindowsInterfaceFactory", "MacInterfaceFactory"]

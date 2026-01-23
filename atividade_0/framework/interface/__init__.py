@@ -1,5 +1,5 @@
 from .interface_factory import InterfaceFactory
 from .window_cursor import Window, Cursor
-from .concretas import WindowsWindow, WindowsCursor, WindowsInterface, MacWindow, MacCursor, MacInterface
+from .concretas import WindowsWindow, WindowsCursor, WindowsInterfaceFactory, MacWindow, MacCursor, MacInterfaceFactory
 
 __all__ = ["InterfaceFactory", "Window", "Cursor", "WindowsWindow", "WindowsCursor", "WindowsInterface", "MacWindow", "MacCursor", "MacInterface"] 
